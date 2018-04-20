@@ -8,6 +8,7 @@ class Redis
 {
 
     private static $config;
+    private $redis;
 
     /**
      * Redis constructor.
@@ -17,11 +18,22 @@ class Redis
     {
         $config = self::getConfig($config);
 
-        return new Client($config);
+        $this->redis = new Client($config);
     }
 
     /**
-     * 兼容框架
+     * 实例化调用
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     */
+    public function __call($name, $arguments)
+    {
+        // TODO: Implement __call() method.
+        return call_user_func_array([$this->redis, $name], $arguments);
+    }
+
+    /**
      * @param array $config
      * @return array
      */
