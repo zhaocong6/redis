@@ -21,6 +21,7 @@ class Redis
     }
 
     /**
+     * 兼容框架
      * @param array $config
      * @return array
      */
