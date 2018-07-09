@@ -166,8 +166,7 @@ class Redis
      */
     public function __construct($config = [])
     {
-        $config = self::getConfig($config);
-        $this->redis = new Client($config);
+        self::getConfig($config);
     }
     /**
      * 实例化调用
@@ -177,8 +176,20 @@ class Redis
      */
     public function __call($name, $arguments)
     {
+        $redis = $this->initRedis();
         // TODO: Implement __call() method.
-        return call_user_func_array([$this->redis, $name], $arguments);
+        return call_user_func_array([$redis, $name], $arguments);
+    }
+    /**
+     * @return Client
+     */
+    private function initRedis()
+    {
+        if (empty($this->redis)){
+            $this->redis = new Client(self::$config);
+        }
+
+        return $this->redis;
     }
     /**
      * @param array $config
