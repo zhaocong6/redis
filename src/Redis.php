@@ -183,12 +183,15 @@ class Redis
      */
     private function initRedis()
     {
-        if (empty($this->redis)){
-            self::$config = array_merge(self::$config, [
-                'persistent'        =>  true
-            ]);
-            $this->redis = new Client(self::$config);
-        }
+        $config = empty($config) ? [] : $config;
+
+        $config = array_merge([
+            'read_write_timeout'=>  0,
+            'persistent'        =>  true
+        ], $config);
+
+        $this->redis = new Client($config);
+        
         return $this->redis;
     }
     /**
