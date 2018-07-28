@@ -1,7 +1,6 @@
 <?php
 namespace Redis;
 use Predis\Client;
-
 /**
  * Interface defining a client-side context such as a pipeline or transaction.
  *
@@ -155,7 +154,6 @@ use Predis\Client;
  *
  * @author Daniele Alessandri <suppakilla@gmail.com>
  */
-
 class Redis
 {
     private static $config;
@@ -186,9 +184,11 @@ class Redis
     private function initRedis()
     {
         if (empty($this->redis)){
+            self::$config = array_merge(self::$config, [
+                'persistent'        =>  true
+            ]);
             $this->redis = new Client(self::$config);
         }
-
         return $this->redis;
     }
     /**
