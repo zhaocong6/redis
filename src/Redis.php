@@ -186,7 +186,6 @@ class Redis
         $config = empty(self::$config) ? [] : self::$config;
 
         $config = array_merge([
-            'read_write_timeout'=>  0,
             'persistent'        =>  true
         ], $config);
 
