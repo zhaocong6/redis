@@ -183,7 +183,7 @@ class Redis
      */
     private function initRedis()
     {
-        $config = empty($config) ? [] : $config;
+        $config = empty(self::$config) ? [] : self::$config;
 
         $config = array_merge([
             'read_write_timeout'=>  0,
